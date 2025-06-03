@@ -1,0 +1,27 @@
+DEFINITION:
+An array is like an egg carton — a container that holds multiple items of the same kind, 
+where each item is placed in a fixed slot (index), and you can access or modify any item by referring to its slot number.
+
+KEY PROPERTIES: 
+1. Fixed size: The size is defined at compile time (unless using dynamic allocation).
+2. Zero-based indexing: First element is at index 0.
+3. Same type: All elements must be of the same type.
+4. Random access: You can directly access any element using its index in O(1) time.
+
+BASIC SYNTAX:
+int numbers[5];        // declares an array of 5 integers
+int scores[5] = {10, 20, 30, 40, 50};  // declares and initializes
+
+EXAMPLE:
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[3] = {5, 10, 15};
+    
+    cout << arr[0] << endl;  // Output: 5
+    cout << arr[1] << endl;  // Output: 10
+    cout << arr[2] << endl;  // Output: 15
+
+    return 0;
+}
