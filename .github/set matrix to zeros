@@ -1,3 +1,198 @@
+Set Matrix Zeroes: Brute-Force Solution
+------------------------------------------
+Problem Statement
+Given a matrix, if an element in the matrix is 0, you must set its entire column and row to 0 and then return the modified matrix. The changes must be done in-place.
+
+Example 1:
+
+Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+Output: [[1,0,1],[0,0,0],[1,0,1]]
+Explanation: Since matrix[1][1]=0, the entire second row and second column are set to 0.
+
+Example 2:
+
+Input: matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+Explanation: Since matrix[0][0]=0 and matrix[0][3]=0, the first row, first column, and fourth column are set to 0.
+-------------------------------------------------------------------------------
+C++ Code
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// This function marks all non-zero elements in a given row with -1.
+void markRow(vector<vector<int>> &matrix, int n, int m, int i) {
+    // Iterate through each column in the specified row 'i'.
+    for (int j = 0; j < m; j++) {
+        // If an element is not a zero, mark it with -1.
+        // We avoid marking zeros because they are our original markers.
+        if (matrix[i][j] != 0) {
+            matrix[i][j] = -1;
+        }
+    }
+}
+
+// This function marks all non-zero elements in a given column with -1.
+void markCol(vector<vector<int>> &matrix, int n, int m, int j) {
+    // Iterate through each row in the specified column 'j'.
+    for (int i = 0; i < n; i++) {
+        // If an element is not a zero, mark it with -1.
+        if (matrix[i][j] != 0) {
+            matrix[i][j] = -1;
+        }
+    }
+}
+
+// The main function to set rows and columns to zero.
+vector<vector<int>> zeroMatrix(vector<vector<int>> &matrix, int n, int m) {
+
+    // First pass: Iterate through the matrix to find all zeros.
+    // When a zero is found, mark its entire row and column with -1.
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (matrix[i][j] == 0) {
+                markRow(matrix, n, m, i); // Mark the entire row
+                markCol(matrix, n, m, j); // Mark the entire column
+            }
+        }
+    }
+
+    // Second pass: After all rows and columns have been marked,
+    // iterate through the matrix one more time.
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            // Replace every marked element (-1) with 0.
+            if (matrix[i][j] == -1) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+    return matrix;
+}
+
+int main() {
+    // Example usage with a sample matrix.
+    vector<vector<int>> matrix = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
+    int n = matrix.size();
+    int m = matrix[0].size();
+
+    // Call the function to perform the operation.
+    vector<vector<int>> ans = zeroMatrix(matrix, n, m);
+
+    // Print the final modified matrix.
+    cout << "The Final matrix is:\n";
+    for (auto it : ans) {
+        for (auto ele : it) {
+            cout << ele << " ";
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+
+----------------------------------------------------------
+
+Complexity Analysis
+
+Time Complexity: O((N∗M)∗(N+M))+O(N\*M), where N is the number of rows and M is the number of columns. The first term comes from iterating through the matrix (O(N*M)) and, for each zero found, marking the corresponding row and column (O(N+M)). The second term is for the final pass.
+
+Space Complexity: O(1) as we are not using any extra space.
 
 
 
+Set Matrix Zeroes: Optimal Solution
+--------------------------------------------
+
+
+C++ Code
+--------------------------------------------------
+#include <bits/stdc++.h>
+using namespace std;
+
+// This function sets entire rows and columns to zero
+// if any cell in them is initially zero.
+vector<vector<int>> zeroMatrix(vector<vector<int>> &matrix, int n, int m) {
+    int col0 = 1;
+
+    // Step 1: Use the first row and column as markers.
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (matrix[i][j] == 0) {
+                // Mark the i-th row
+                matrix[i][0] = 0;
+
+                // Mark the j-th column
+                if (j != 0)
+                    matrix[0][j] = 0;
+                else
+                    col0 = 0; // The first column must be zeroed
+            }
+        }
+    }
+
+    // Step 2: Zero out the inner sub-matrix from (1,1) to (n-1, m-1)
+    // using the markers.
+    for (int i = 1; i < n; i++) {
+        for (int j = 1; j < m; j++) {
+            if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+    // Step 3: Finally, zero out the first row and first column based on markers.
+    if (matrix[0][0] == 0) {
+        for (int j = 0; j < m; j++) {
+            matrix[0][j] = 0;
+        }
+    }
+    if (col0 == 0) {
+        for (int i = 0; i < n; i++) {
+            matrix[i][0] = 0;
+        }
+    }
+
+    return matrix;
+}
+
+int main() {
+    vector<vector<int>> matrix = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
+    int n = matrix.size();
+    int m = matrix[0].size();
+    vector<vector<int>> ans = zeroMatrix(matrix, n, m);
+
+    cout << "The Final matrix is:\n";
+    for (auto it : ans) {
+        for (auto ele : it) {
+            cout << ele << " ";
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+------------------------------------------------------
+
+Steps of the Algorithm
+
+Use the First Row and Column as Markers:
+
+Iterate through the entire matrix. When a 0 is found at matrix[i][j], set matrix[i][0] = 0 and matrix[0][j] = 0.
+
+A separate variable, col0, is used to track the first column, as matrix[0][0] is needed to mark the first row.
+
+Zero Out the Inner Matrix:
+
+Iterate from (1,1) to (n-1, m-1).
+
+Check the corresponding row marker (matrix[i][0]) and column marker (matrix[0][j]). If either is 0, set matrix[i][j] to 0.
+
+Handle the First Row and First Column:
+
+After the inner matrix is processed, check matrix[0][0] and col0. Zero out the entire first row or column if their respective markers are 0.
+
+Complexity Analysis
+Time Complexity: O(2\*(N\*M)) since we traverse the matrix a constant number of times.
+
+Space Complexity: O(1) as we only use a single extra variable.
