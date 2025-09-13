@@ -1,6 +1,95 @@
 //LC: Question 146
 //Implement LRU Cache
 
+//lc version: https://leetcode.com/problems/lru-cache/description/
+/*
+class LRUCache {
+public:
+    class Node {
+    public:
+        int key, val;
+        Node* prev;
+        Node* next;
+
+        Node(int k, int v) {
+            key = k;
+            val = v;
+            prev = next = NULL;
+        }
+    };
+
+    // create dummy head and tail, to avoid NULL cases
+    Node* head = new Node(-1, -1);
+    Node* tail = new Node(-1, -1);
+    int cap;
+    unordered_map<int, Node*> mp;
+
+    LRUCache(int capacity) {
+        cap = capacity;
+        head->next = tail;
+        tail->prev = head;
+    }
+
+    int get(int key) {
+        // if key doesn't exist return -1
+        if (mp.find(key) == mp.end()) {
+            return -1;
+        } else {
+            // key mil gya toh value return krna hai aur uska head k next m
+            // paucha dena h
+            Node* resNode = mp[key];
+            int res = resNode->val;
+            delNode(resNode);
+            addNode(resNode);
+            return res;
+        }
+    }
+
+    // insert node after head
+
+    void addNode(Node* newNode) {
+        newNode->next = head->next; // connect newNode to old node
+        newNode->prev = head;       // connect newnode to prev
+        head->next->prev = newNode; // connect oldnext to new node
+        head->next = newNode;       // connect head to newNode
+    }
+
+    // delete node at thr time of get (del and add at the first after head) or
+    // eviction
+
+    void delNode(Node* node) {
+        node->next->prev = node->prev;
+        node->prev->next = node->next;
+    }
+
+    void put(int key, int value) {
+        // if key exist in map, update value and move to first
+        if (mp.find(key) != mp.end()) {
+            Node* existingNode = mp[key];
+            existingNode->val = value;
+            delNode(existingNode);
+            addNode(existingNode);
+            // head k baad insert hogya with updated value, ab key ko v update
+            // krna h
+            mp[key] = head->next;
+        } else {
+            if (mp.size() == cap) {
+                Node* LRUNode = tail->prev;
+                mp.erase(LRUNode->key);
+                delNode(LRUNode);
+                delete LRUNode;
+            }
+            // create New node and add to map
+            Node* newNode = new Node(key, value);
+            addNode(newNode);
+            mp[key] = head->next;
+        }
+    }
+};
+
+ */
+
+
 #include <iostream>
 #include <unordered_map>
 using namespace std;
