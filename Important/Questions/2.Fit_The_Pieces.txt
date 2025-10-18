@@ -1,0 +1,81 @@
+Fit the pieces together: Full Problem Description
+
+Takashi is playing a puzzle game. The puzzle involves placing multiple puzzle pieces on a square board and filling in all of the gaps of the board.
+
+Board and Pieces
+
+Board: An N * N square grid.
+
+Pieces: Consist of one or more $1 \times 1$ tiles, where all tiles in a single piece are connected by sharing an entire side.
+
+Rules
+
+Pieces must be placed so each tile exactly overlaps a square on the board.
+
+Pieces can be rotated, but not flipped over.
+
+Pieces must not overlap.
+
+Pieces must not extend beyond the edge of the board.
+
+All M given pieces must be used.
+
+If the board cannot contain all pieces or has gaps after all pieces are placed, it is not a valid solution.
+
+Task
+
+Your task is to write a program to check whether the board and the pieces that Takashi has can form a valid puzzle (i.e., perfectly fill the $N \times N$ board).
+
+Input Rules
+
+The program will receive standard input in the following format:
+
+N M
+S₁,₁
+...
+S₁,ₙ
+...
+Sₘ,₁
+...
+Sₘ,ₙ
+
+
+
+The first line contains two integers, N and M.
+
+This is followed by M pieces. Each piece is described by N lines, where each line is a string of N characters.
+
+In the piece descriptions, # indicates a square with a tile, and . indicates an empty square.
+
+Constraints
+
+1 <= N <= 4, integer
+
+1 <= M <= N^2, integer
+
+S_{i,j} is a string of length N consisting of . or #.
+
+Output Rules
+
+Output yes if the board can be filled exactly with all of the given pieces.
+
+Output no if it is not possible.
+
+Example
+
+Standard Input:
+
+2 3
+##
+..
+#.
+..
+#.
+..
+
+
+
+Standard Output:
+
+yes
+
