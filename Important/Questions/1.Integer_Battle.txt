@@ -1,0 +1,65 @@
+Integer Battle: Full Problem Description
+
+We have decided to hold a class-based integer battle at our high school. Students will write down their favorite numbers on a piece of paper. The class's score is determined by how many times the product of the integers written by the students in the class can be evenly divided by the integer K.
+
+You are the homeroom teacher for class 1-1. There are N students in your class, and the i-th student wrote down $A_{i}$.
+
+Please create a program to calculate your class's score.
+
+Implementation Details
+
+You need to implement a command-line application that takes input from standard input and outputs the result to standard output.
+
+Input Rules
+
+The program will receive standard input in the following format:
+
+N K
+A₁ A₂ ... Aₙ
+
+
+Constraints
+
+1 <= N <= 10^6, integer
+
+2 <= K <= 10^9, integer
+
+1 <= A_i <= 10^9, integer
+
+Output Rules
+
+Please output the answer in the following format to standard output:
+
+Output the answer (a single integer) on the first line.
+
+Examples
+
+Example 1:
+
+Standard Input:
+
+3 5
+10 100 50
+
+
+Standard Output:
+
+5
+
+
+Explanation: The product of the three numbers is 10 * 100 * 50 = 50000. This can be divided by 5 exactly 5 times.
+
+Example 2:
+
+Standard Input:
+
+5 10
+100000 100000 100000 100000 100000
+
+
+Standard Output:
+
+25
+
+
+Important Note: Be mindful of overflow. The product of all numbers can exceed the capacity of a standard 64-bit integer.
